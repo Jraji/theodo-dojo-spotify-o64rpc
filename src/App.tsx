@@ -1,6 +1,8 @@
 import logo from './assets/logo.svg';
 import './App.css';
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { fetchTracks } from './lib/fetchTracks';
 
 const App = () => {
   const trackUrls = [
@@ -15,6 +17,14 @@ const App = () => {
   const goToNextTrack = () => {
     setTrackIndex(trackIndex + 1);
   }
+
+  const { data: tracks, isLoading, isSuccess} = useQuery({
+		queryKey: ['tracks'],
+		queryFn: fetchTracks
+});
+if (isSuccess){
+  console.log (tracks) 
+  tracks.length}
 
   return (
     <div className="App">
